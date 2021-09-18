@@ -1,5 +1,6 @@
 /.idea/
 /server/.idea/
+/client/.idea/
 /server/.vs/
 bin/
 obj/
