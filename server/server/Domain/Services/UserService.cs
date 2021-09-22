@@ -1,8 +1,7 @@
 ﻿using Server.Domain.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Server.Domain.Repositories;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Server.Domain.Services
 {
@@ -38,20 +37,5 @@ namespace Server.Domain.Services
         {
             _repository.Update(user);
         }
-
-        public IList<User> GetUserByName(string email)
-        {
-            var users = _repository.GetAll()
-                .Result.Where(u => u.Email.Contains(email)).ToList();
-
-            return users;
-        }
-
-        public void GetUserByEmail(string email)
-        {
-
-        }
-
-        
     }
 }

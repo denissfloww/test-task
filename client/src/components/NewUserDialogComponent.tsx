@@ -9,7 +9,7 @@ import { TextField } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Roles, RolesEnum } from '../Enums/RolesEnum';
+import { Roles, RolesEnum } from '../enums/RolesEnum';
 import PhoneMask from './PhoneMask';
 import { Autocomplete } from '@material-ui/lab';
 import InputField from './InputField';
@@ -90,16 +90,7 @@ const NewUserDialog = (props: DialogProps) => {
                             label='Фамилия'
                             helperText={'surname' in errors ? errors.surname.message : ''}
                         />
-                        <InputField
-                            name='surname'
-                            errors={errors}
-                            register={register}
-                            type='text'
-                            label='Фамилия'
-                            helperText={'surname' in errors ? errors.surname.message : ''}
-                        />
                         <TextField
-                            autoFocus
                             inputRef={register}
                             error={'phone' in errors}
                             helperText={'phone' in errors ? errors.phone.message : ''}

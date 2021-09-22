@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { IUser } from '../Interfaces/IUser';
+import { IUser } from '../interfaces/IUser';
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import DeleteConfirmDialog from './DeleteConfirmDialogComponent';
 import PassChangeConfirmDialog from './PassChangeDialogComponent';
-import { RolesEnum } from '../Enums/RolesEnum';
+import { RolesEnum } from '../enums/RolesEnum';
 
 interface UserTableProps {
     users: IUser[];

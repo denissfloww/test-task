@@ -16,7 +16,6 @@ const InputField = (props: IProps) => {
     return (
         <TextField
             {...other}
-            autoFocus
             inputRef={register}
             error={name in errors}
             helperText={helperText}

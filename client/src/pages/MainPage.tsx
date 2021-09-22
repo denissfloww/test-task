@@ -2,26 +2,32 @@ import { useMainPageStyles } from '../styles/muiStyles';
 import { Button, Grid, Paper } from '@material-ui/core';
 import UsersTable from '../components/UsersTable';
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FilterBar from '../components/FilterBar';
-import { IUser } from '../Interfaces/IUser';
-import { RolesEnum } from '../Enums/RolesEnum';
+import { IUser } from '../interfaces/IUser';
+import { useDispatch, useSelector } from 'react-redux';
 import NewUserDialogComponent from '../components/NewUserDialogComponent';
+import { fetchUsers, selectUsersState } from '../redux/slices/usersSlice';
 
-const testUsers: IUser[] = [
-    { id: 1, email: 'eemaail', password: '332', name: 'aaa', surname: 'User', number: '2200342345', role: RolesEnum.Admin },
-    { id: 2, email: 'mail', password: '332', name: 'User', surname: 'User', number: '2200342345', role: RolesEnum.Worker },
-];
+// const testUsers: IUser[] = [
+//     { id: 1, email: 'eemaail', password: '332', name: 'aaa', surname: 'User', number: '2200342345', role: RolesEnum.Admin },
+//     { id: 2, email: 'mail', password: '332', name: 'User', surname: 'User', number: '2200342345', role: RolesEnum.Worker },
+// ];
 
 const MainPage = () => {
     const classes = useMainPageStyles();
+    const dispatch = useDispatch();
     const [filterValue, setFilterValue] = useState('');
     const [openInsertNewUserDialog, setOpenInsertNewUserDialog] = React.useState(false);
-    const filteredUsers = testUsers.filter(p => {
+    useEffect(() => {
+        dispatch(fetchUsers());
+    }, []);
+    const { users } = useSelector(selectUsersState);
+    const filteredUsers = users.filter((p: IUser) => {
         if (filterValue.length !== 0 && filterValue.length > 3) {
             return p.name.toLowerCase().includes(filterValue.toLowerCase()) || p.email.toLowerCase().includes(filterValue.toLowerCase());
         } else {
-            return testUsers;
+            return users;
         }
     });
     const handleClickOpenInsertNewUserDialog = () => {
@@ -33,22 +39,26 @@ const MainPage = () => {
     };
 
     const handleInsert = () => {
-        console.log('ggg')
-    }
+        console.log('ggg');
+    };
 
     return (
         <div className={classes.root}>
             <Paper className={classes.mainPagePaper}>
                 <FilterBar value={filterValue} setValue={setFilterValue} />
-                <Grid container style={{paddingTop:'1%'}}>
-                    <Grid item md={3} >
+                <Grid container style={{ paddingTop: '1%' }}>
+                    <Grid item md={3}>
                         <Button variant='contained' color='primary' onClick={handleClickOpenInsertNewUserDialog}>
                             Добавить пользователя
                         </Button>
                     </Grid>
                 </Grid>
                 <UsersTable users={filteredUsers} />
-                <NewUserDialogComponent open={openInsertNewUserDialog} handleClose={handleCloseInsertNewUserDialog} handleInsert={handleInsert} />
+                <NewUserDialogComponent
+                    open={openInsertNewUserDialog}
+                    handleClose={handleCloseInsertNewUserDialog}
+                    handleInsert={handleInsert}
+                />
             </Paper>
         </div>
     );

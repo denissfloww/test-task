@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Server.Domain.Models;
+using Server.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Server.Domain.Services;
 
 namespace Server.Controllers
 {

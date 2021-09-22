@@ -1,4 +1,4 @@
-import { RolesEnum } from '../Enums/RolesEnum';
+import { RolesEnum } from '../enums/RolesEnum';
 
 export interface IUser {
     id: number;

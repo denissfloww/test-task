@@ -21,9 +21,17 @@ namespace Server
         }
 
         public IConfiguration Configuration { get; }
+        private readonly string _policyName = "CorsPolicy";
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(o => o.AddPolicy(_policyName, builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
+
             services.AddControllers();
             services.AddMvc();
 
@@ -46,14 +54,17 @@ namespace Server
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => 
+                app.UseSwaggerUI(c =>
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "server v1"
                     ));
             }
 
+
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(_policyName);
 
             app.UseAuthorization();
 
