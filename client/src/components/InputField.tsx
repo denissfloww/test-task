@@ -8,10 +8,12 @@ interface IProps {
     type: string;
     label: string;
     helperText: any;
+    value: string;
+    setValue: (value: ((prevState: any) => any) | any) => void;
 }
 
 const InputField = (props: IProps) => {
-    const { errors, register, type, label, helperText, name, ...other } = props;
+    const { errors, register, type, label, helperText, name, value, setValue, ...other } = props;
 
     return (
         <TextField
@@ -21,6 +23,10 @@ const InputField = (props: IProps) => {
             helperText={helperText}
             margin='dense'
             name={name}
+            value={value}
+            onChange={(e: any) => {
+                setValue(e.target.value);
+            }}
             label={label}
             type={type}
             fullWidth

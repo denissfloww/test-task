@@ -7,6 +7,8 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import DeleteConfirmDialog from './DeleteConfirmDialogComponent';
 import PassChangeConfirmDialog from './PassChangeDialogComponent';
 import { RolesEnum } from '../enums/RolesEnum';
+import { useDispatch } from 'react-redux';
+import { deleteUser } from '../redux/slices/usersSlice';
 
 interface UserTableProps {
     users: IUser[];
@@ -16,9 +18,12 @@ const columns = ['ID', 'Имя', 'Фамилия', 'Email', 'Номер', 'Ро�
 
 const UsersTable = (props: UserTableProps) => {
     const { users } = props;
+    const dispatch = useDispatch();
     const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
-    const [openPassCgangeDialog, setOpenPassCgangeDialog] = React.useState(false);
-    const handleClickOpenDeleteDialog = () => {
+    const [openPassChangeDialog, setOpenPassChangeDialog] = React.useState(false);
+    const [userId, setUserId] = React.useState(0);
+    const handleClickOpenDeleteDialog = (id: number) => {
+        setUserId(id);
         setOpenDeleteDialog(true);
     };
 
@@ -26,20 +31,21 @@ const UsersTable = (props: UserTableProps) => {
         setOpenDeleteDialog(false);
     };
 
-    const handleDelete = () => {
-        console.log('делете')
+    const handleDelete = (id: number) => {
+        dispatch(deleteUser(id));
+        handleCloseDeleteDialog();
     };
 
-    const handleClickOpenPassCgangeDialog = () => {
-        setOpenPassCgangeDialog(true);
+    const handleClickOpenPassChangeDialog = () => {
+        setOpenPassChangeDialog(true);
     };
 
     const handleClosePassChangeDialog = () => {
-        setOpenPassCgangeDialog(false);
+        setOpenPassChangeDialog(false);
     };
 
     const handlePassChange = () => {
-        console.log('')
+        console.log('');
     };
 
     return (
@@ -66,10 +72,10 @@ const UsersTable = (props: UserTableProps) => {
                                     <Button>
                                         <EditIcon />
                                     </Button>
-                                    <Button onClick={handleClickOpenPassCgangeDialog}>
+                                    <Button onClick={handleClickOpenPassChangeDialog}>
                                         <LockOpenIcon />
                                     </Button>
-                                    <Button onClick={handleClickOpenDeleteDialog}>
+                                    <Button onClick={() => handleClickOpenDeleteDialog(user.id)}>
                                         <DeleteOutlineIcon />
                                     </Button>
                                 </TableCell>
@@ -78,8 +84,12 @@ const UsersTable = (props: UserTableProps) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <DeleteConfirmDialog handleClose={handleCloseDeleteDialog} open={openDeleteDialog} handleDelete={handleDelete} />
-            <PassChangeConfirmDialog handleClose={handleClosePassChangeDialog} open={openPassCgangeDialog} handlePassChange={handlePassChange} />
+            <DeleteConfirmDialog handleClose={handleCloseDeleteDialog} id={userId} open={openDeleteDialog} handleDelete={handleDelete} />
+            <PassChangeConfirmDialog
+                handleClose={handleClosePassChangeDialog}
+                open={openPassChangeDialog}
+                handlePassChange={handlePassChange}
+            />
         </div>
     );
 };

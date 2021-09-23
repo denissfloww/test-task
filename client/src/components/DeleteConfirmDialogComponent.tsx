@@ -9,11 +9,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 interface DialogProps {
     open: boolean;
     handleClose: () => void;
-    handleDelete: () => void;
+    handleDelete: (id: number) => void;
+    id: number;
 }
 
 const DeleteConfirmDialog = (props: DialogProps) => {
-    const { handleClose, open, handleDelete } = props;
+    const { handleClose, open, handleDelete, id } = props;
+
     return (
         <Dialog open={open} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
             <DialogTitle id='alert-dialog-title'>{'Удаление'}</DialogTitle>
@@ -22,9 +24,9 @@ const DeleteConfirmDialog = (props: DialogProps) => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} color='primary'>
-                    Отмена
+                    Отмена {id}
                 </Button>
-                <Button onClick={handleDelete} color='secondary' autoFocus>
+                <Button onClick={() => handleDelete(id)} color='secondary' autoFocus>
                     Удалить
                 </Button>
             </DialogActions>

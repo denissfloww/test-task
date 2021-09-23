@@ -7,12 +7,8 @@ import FilterBar from '../components/FilterBar';
 import { IUser } from '../interfaces/IUser';
 import { useDispatch, useSelector } from 'react-redux';
 import NewUserDialogComponent from '../components/NewUserDialogComponent';
-import { fetchUsers, selectUsersState } from '../redux/slices/usersSlice';
+import { fetchUsers, insertUser, selectUsersState } from '../redux/slices/usersSlice';
 
-// const testUsers: IUser[] = [
-//     { id: 1, email: 'eemaail', password: '332', name: 'aaa', surname: 'User', number: '2200342345', role: RolesEnum.Admin },
-//     { id: 2, email: 'mail', password: '332', name: 'User', surname: 'User', number: '2200342345', role: RolesEnum.Worker },
-// ];
 
 const MainPage = () => {
     const classes = useMainPageStyles();
@@ -38,8 +34,9 @@ const MainPage = () => {
         setOpenInsertNewUserDialog(false);
     };
 
-    const handleInsert = () => {
-        console.log('ggg');
+    const handleInsert = (user: IUser) => {
+        dispatch(insertUser(user))
+        handleCloseInsertNewUserDialog()
     };
 
     return (

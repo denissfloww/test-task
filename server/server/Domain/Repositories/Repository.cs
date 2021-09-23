@@ -28,14 +28,14 @@ namespace Server.Domain.Repositories
         public async Task Add(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public async Task Delete(long id)
         {
-            var entity = await _context.Set<TEntity>().FindAsync(id);
+            var entity = _context.Set<TEntity>().Find(id);
             _context.Set<TEntity>().Remove(entity);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public async Task<TEntity> Update(TEntity entity)

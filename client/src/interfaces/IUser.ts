@@ -1,7 +1,7 @@
 import { RolesEnum } from '../enums/RolesEnum';
 
 export interface IUser {
-    id: number;
+    id: number | null;
     email:string;
     password: string;
     name: string;
