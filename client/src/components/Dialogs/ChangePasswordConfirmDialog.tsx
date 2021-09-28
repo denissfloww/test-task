@@ -5,10 +5,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { TextField } from '@material-ui/core';
+import { Snackbar, TextField } from '@material-ui/core';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Alert } from '@material-ui/lab';
 
 interface InputValues {
     password: string;
@@ -23,20 +24,40 @@ const validationSchema = yup.object({
 interface DialogProps {
     open: boolean;
     handleClose: () => void;
-    handlePassChange: () => void;
+    handlePassChange: (id: number, password: string) => void;
+    id: number;
 }
 
-const PassChangeConfirmDialog = (props: DialogProps) => {
-    const { handleClose, open, handlePassChange } = props;
-
+const ChangePasswordConfirmDialog = (props: DialogProps) => {
+    const { handleClose, open, handlePassChange, id } = props;
+    const [errorModalOpen, setErrorModalOpen] = React.useState(false);
+    const [error, setError] = React.useState('');
     const { register, handleSubmit, errors } = useForm({
         mode: 'onChange',
         resolver: yupResolver(validationSchema),
     });
 
+    const handleErrorClose = (
+        event: React.SyntheticEvent | React.MouseEvent,
+        reason?: string,
+    ) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setErrorModalOpen(false);
+    };
+
     const handlePasswordChange = ({ password, confirmation }: InputValues) => {
-        console.log(password, confirmation);
-        handlePassChange();
+        if (password !== confirmation) {
+            setErrorModalOpen(true);
+            setError('Пароли не совпадают!')
+        }
+        else{
+            handlePassChange(id, password);
+            handleClose();
+        }
+
     };
 
     return (
@@ -78,8 +99,15 @@ const PassChangeConfirmDialog = (props: DialogProps) => {
                     </Button>
                 </DialogActions>
             </form>
+            <Snackbar
+                open={errorModalOpen}
+                autoHideDuration={4000}
+                onClose={handleErrorClose}
+            >
+                <Alert severity="error">{error}</Alert>
+            </Snackbar>
         </Dialog>
     );
 };
 
-export default PassChangeConfirmDialog;
+export default ChangePasswordConfirmDialog;

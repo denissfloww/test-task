@@ -4,11 +4,12 @@ import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, 
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
-import DeleteConfirmDialog from './DeleteConfirmDialogComponent';
-import PassChangeConfirmDialog from './PassChangeDialogComponent';
+import ConfirmDeleteDialog from './Dialogs/ConfirmDeleteDialog';
+import ChangePasswordConfirmDialog from './Dialogs/ChangePasswordConfirmDialog';
 import { RolesEnum } from '../enums/RolesEnum';
 import { useDispatch } from 'react-redux';
-import { deleteUser } from '../redux/slices/usersSlice';
+import { deleteUser, updateUserPassword } from '../redux/slices/usersSlice';
+import EditUserDialogComponent from './Dialogs/EditUserDialog';
 
 interface UserTableProps {
     users: IUser[];
@@ -21,7 +22,9 @@ const UsersTable = (props: UserTableProps) => {
     const dispatch = useDispatch();
     const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
     const [openPassChangeDialog, setOpenPassChangeDialog] = React.useState(false);
+    const [openEditDialog, setOpenEditDialog] = React.useState(false);
     const [userId, setUserId] = React.useState(0);
+    const [user, setUser] = React.useState<IUser>(users[0]);
     const handleClickOpenDeleteDialog = (id: number) => {
         setUserId(id);
         setOpenDeleteDialog(true);
@@ -36,7 +39,8 @@ const UsersTable = (props: UserTableProps) => {
         handleCloseDeleteDialog();
     };
 
-    const handleClickOpenPassChangeDialog = () => {
+    const handleClickOpenPassChangeDialog = (id: number) => {
+        setUserId(id);
         setOpenPassChangeDialog(true);
     };
 
@@ -44,8 +48,18 @@ const UsersTable = (props: UserTableProps) => {
         setOpenPassChangeDialog(false);
     };
 
-    const handlePassChange = () => {
-        console.log('');
+    const handlePassChange = (id: number, password: string) => {
+        dispatch(updateUserPassword(id, password));
+    };
+
+    const handleClickOpenEditDialog = (user: IUser) => {
+        console.log(user)
+        setUser(user);
+        setOpenEditDialog(true);
+    };
+
+    const handleCloseEditDialog = () => {
+        setOpenEditDialog(false);
     };
 
     return (
@@ -55,7 +69,7 @@ const UsersTable = (props: UserTableProps) => {
                     <TableHead>
                         <TableRow>
                             {columns.map(value => (
-                                <TableCell>{value}</TableCell>
+                                <TableCell><b>{value}</b></TableCell>
                             ))}
                         </TableRow>
                     </TableHead>
@@ -69,13 +83,13 @@ const UsersTable = (props: UserTableProps) => {
                                 <TableCell>{user.number}</TableCell>
                                 <TableCell>{RolesEnum[user.role]}</TableCell>
                                 <TableCell>
-                                    <Button>
+                                    <Button onClick={() => handleClickOpenEditDialog(user)}>
                                         <EditIcon />
                                     </Button>
-                                    <Button onClick={handleClickOpenPassChangeDialog}>
+                                    <Button onClick={() => {handleClickOpenPassChangeDialog(Number(user.id))}}>
                                         <LockOpenIcon />
                                     </Button>
-                                    <Button onClick={() => handleClickOpenDeleteDialog(user.id)}>
+                                    <Button onClick={() => handleClickOpenDeleteDialog(Number(user.id))}>
                                         <DeleteOutlineIcon />
                                     </Button>
                                 </TableCell>
@@ -84,12 +98,15 @@ const UsersTable = (props: UserTableProps) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <DeleteConfirmDialog handleClose={handleCloseDeleteDialog} id={userId} open={openDeleteDialog} handleDelete={handleDelete} />
-            <PassChangeConfirmDialog
+            <ConfirmDeleteDialog handleClose={handleCloseDeleteDialog} id={userId} open={openDeleteDialog} handleDelete={handleDelete} />
+            <ChangePasswordConfirmDialog
                 handleClose={handleClosePassChangeDialog}
                 open={openPassChangeDialog}
+                id={userId}
                 handlePassChange={handlePassChange}
             />
+            {user? <EditUserDialogComponent open={openEditDialog} handleClose={handleCloseEditDialog} user={user} /> : null}
+
         </div>
     );
 };

@@ -37,5 +37,12 @@ namespace Server.Domain.Services
         {
             _repository.Update(user);
         }
+
+        public void UpdateUserPassword(long userId, string password)
+        {
+            var user = _repository.GetById(userId).Result;
+            user.Password = password;
+            _repository.Update(user);
+        }
     }
 }

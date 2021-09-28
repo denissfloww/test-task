@@ -73,6 +73,30 @@ export const deleteUser = (id: number): AppThunk => {
     };
 };
 
+export const updateUserPassword = (id: number, password: string): AppThunk => {
+    return async dispatch => {
+        try {
+            await UsersService.updateUserPassword(id, password);
+            const users = await UsersService.getUsers();
+            dispatch(setUsers(users));
+        } catch (e) {
+            console.log(e);
+        }
+    };
+};
+
+export const updateUser = (user: IUser): AppThunk => {
+    return async dispatch => {
+        try {
+            await UsersService.updateUser(user);
+            const users = await UsersService.getUsers();
+            dispatch(setUsers(users));
+        } catch (e) {
+            console.log(e);
+        }
+    };
+};
+
 export const selectUsersState = (state: RootState) => state.users;
 
 export default usersSlice.reducer;

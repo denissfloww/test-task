@@ -11,5 +11,6 @@ namespace Server.Domain.Services
         void InsertUser(User user);
         void DeleteUser(long id);
         void UpdateUser(User user);
+        void UpdateUserPassword(long userId, string password);
     }
 }

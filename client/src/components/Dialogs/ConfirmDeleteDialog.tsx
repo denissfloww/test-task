@@ -13,7 +13,7 @@ interface DialogProps {
     id: number;
 }
 
-const DeleteConfirmDialog = (props: DialogProps) => {
+const ConfirmDeleteDialog = (props: DialogProps) => {
     const { handleClose, open, handleDelete, id } = props;
 
     return (
@@ -24,7 +24,7 @@ const DeleteConfirmDialog = (props: DialogProps) => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose} color='primary'>
-                    Отмена {id}
+                    Отмена
                 </Button>
                 <Button onClick={() => handleDelete(id)} color='secondary' autoFocus>
                     Удалить
@@ -34,4 +34,4 @@ const DeleteConfirmDialog = (props: DialogProps) => {
     );
 };
 
-export default DeleteConfirmDialog;
+export default ConfirmDeleteDialog;

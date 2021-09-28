@@ -5,6 +5,7 @@ using Server.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Server.Dto;
 
 namespace Server.Controllers
 {
@@ -84,6 +85,20 @@ namespace Server.Controllers
             try
             {
                 _userService.UpdateUser(user);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpPut, Route("/user/{userId}/password")]
+        public void UpdateUserPassword(long userId, ChangePasswordDto passwordDto)
+        {
+            try
+            {
+                _userService.UpdateUserPassword(userId, passwordDto.Password);
             }
             catch (Exception e)
             {

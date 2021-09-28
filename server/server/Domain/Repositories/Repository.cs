@@ -41,7 +41,7 @@ namespace Server.Domain.Repositories
         public async Task<TEntity> Update(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return entity;
         }
     }

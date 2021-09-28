@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 import FilterBar from '../components/FilterBar';
 import { IUser } from '../interfaces/IUser';
 import { useDispatch, useSelector } from 'react-redux';
-import NewUserDialogComponent from '../components/NewUserDialogComponent';
-import { fetchUsers, insertUser, selectUsersState } from '../redux/slices/usersSlice';
+import NewUserDialogComponent from '../components/Dialogs/CreateNewUserDialog';
+import { fetchUsers, selectUsersState } from '../redux/slices/usersSlice';
 
 
 const MainPage = () => {
@@ -34,11 +34,6 @@ const MainPage = () => {
         setOpenInsertNewUserDialog(false);
     };
 
-    const handleInsert = (user: IUser) => {
-        dispatch(insertUser(user))
-        handleCloseInsertNewUserDialog()
-    };
-
     return (
         <div className={classes.root}>
             <Paper className={classes.mainPagePaper}>
@@ -54,7 +49,6 @@ const MainPage = () => {
                 <NewUserDialogComponent
                     open={openInsertNewUserDialog}
                     handleClose={handleCloseInsertNewUserDialog}
-                    handleInsert={handleInsert}
                 />
             </Paper>
         </div>
