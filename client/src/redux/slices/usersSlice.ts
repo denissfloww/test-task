@@ -5,12 +5,12 @@ import UsersService from '../../services/usersService';
 
 interface InitialAuthState {
     users: IUser[];
-    currentUser: IUser | null
+    user: IUser | null
 }
 
 const initialState: InitialAuthState = {
     users: [],
-    currentUser: null
+    user: null
 };
 
 const usersSlice = createSlice({
@@ -21,12 +21,12 @@ const usersSlice = createSlice({
             state.users = action.payload;
         },
         setUser: (state, action: PayloadAction<IUser>) => {
-            state.currentUser = action.payload;
+            state.user = action.payload;
         },
     },
 });
 
-export const { setUsers } = usersSlice.actions;
+export const { setUsers, setUser } = usersSlice.actions;
 
 export const fetchUsers = (): AppThunk => {
     return async dispatch => {
@@ -39,15 +39,16 @@ export const fetchUsers = (): AppThunk => {
     };
 };
 
-export const setUser = (user: IUser): AppThunk => {
+export const fetchUserById = (id: number):AppThunk => {
     return async dispatch => {
         try {
+            const user: IUser = await UsersService.getUserById(id);
             dispatch(setUser(user));
-        } catch (e) {
+        }catch (e) {
             console.log(e);
         }
-    };
-};
+    }
+}
 
 export const insertUser = (user: IUser): AppThunk => {
     return async dispatch => {

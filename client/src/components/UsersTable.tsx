@@ -2,14 +2,13 @@ import * as React from 'react';
 import { IUser } from '../interfaces/IUser';
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import EditIcon from '@material-ui/icons/Edit';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import ConfirmDeleteDialog from './Dialogs/ConfirmDeleteDialog';
 import ChangePasswordConfirmDialog from './Dialogs/ChangePasswordConfirmDialog';
 import { RolesEnum } from '../enums/RolesEnum';
 import { useDispatch } from 'react-redux';
 import { deleteUser, updateUserPassword } from '../redux/slices/usersSlice';
-import EditUserDialogComponent from './Dialogs/EditUserDialog';
+import TableActions from './TableActions';
 
 interface UserTableProps {
     users: IUser[];
@@ -22,9 +21,7 @@ const UsersTable = (props: UserTableProps) => {
     const dispatch = useDispatch();
     const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
     const [openPassChangeDialog, setOpenPassChangeDialog] = React.useState(false);
-    const [openEditDialog, setOpenEditDialog] = React.useState(false);
     const [userId, setUserId] = React.useState(0);
-    const [user, setUser] = React.useState<IUser>(users[0]);
     const handleClickOpenDeleteDialog = (id: number) => {
         setUserId(id);
         setOpenDeleteDialog(true);
@@ -52,15 +49,7 @@ const UsersTable = (props: UserTableProps) => {
         dispatch(updateUserPassword(id, password));
     };
 
-    const handleClickOpenEditDialog = (user: IUser) => {
-        console.log(user)
-        setUser(user);
-        setOpenEditDialog(true);
-    };
 
-    const handleCloseEditDialog = () => {
-        setOpenEditDialog(false);
-    };
 
     return (
         <div style={{ maxWidth: '100%', paddingTop: '5%' }}>
@@ -83,9 +72,14 @@ const UsersTable = (props: UserTableProps) => {
                                 <TableCell>{user.number}</TableCell>
                                 <TableCell>{RolesEnum[user.role]}</TableCell>
                                 <TableCell>
-                                    <Button onClick={() => handleClickOpenEditDialog(user)}>
-                                        <EditIcon />
-                                    </Button>
+                                    <TableActions userData={{
+                                        id: user.id,
+                                        email: user.email,
+                                        name: user.name,
+                                        surname: user.surname,
+                                        number: user.number,
+                                        role: user.role
+                                    }} />
                                     <Button onClick={() => {handleClickOpenPassChangeDialog(Number(user.id))}}>
                                         <LockOpenIcon />
                                     </Button>
@@ -105,8 +99,6 @@ const UsersTable = (props: UserTableProps) => {
                 id={userId}
                 handlePassChange={handlePassChange}
             />
-            {user? <EditUserDialogComponent open={openEditDialog} handleClose={handleCloseEditDialog} user={user} /> : null}
-
         </div>
     );
 };

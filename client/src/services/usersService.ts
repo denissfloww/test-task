@@ -7,6 +7,11 @@ const getUsers = async () => {
     return response.data;
 };
 
+const getUserById = async (id: number) => {
+    const response = await axios.get(`${backendUrl}/user/${id}`);
+    return response.data;
+}
+
 const insertUser = async (user: IUser) => {
     await axios.post(`${backendUrl}/user`, {
         email: user.email,
@@ -47,7 +52,8 @@ const UsersService = {
     insertUser,
     deleteUser,
     updateUserPassword,
-    updateUser
+    updateUser,
+    getUserById
 };
 
 export default UsersService;
