@@ -3,14 +3,12 @@ import { AppThunk, RootState } from '../store';
 import { IUser } from '../../interfaces/IUser';
 import UsersService from '../../services/usersService';
 
-interface InitialAuthState {
+interface InitialState {
     users: IUser[];
-    user: IUser | null
 }
 
-const initialState: InitialAuthState = {
+const initialState: InitialState = {
     users: [],
-    user: null
 };
 
 const usersSlice = createSlice({
@@ -20,13 +18,10 @@ const usersSlice = createSlice({
         setUsers: (state, action: PayloadAction<IUser[]>) => {
             state.users = action.payload;
         },
-        setUser: (state, action: PayloadAction<IUser>) => {
-            state.user = action.payload;
-        },
     },
 });
 
-export const { setUsers, setUser } = usersSlice.actions;
+export const { setUsers } = usersSlice.actions;
 
 export const fetchUsers = (): AppThunk => {
     return async dispatch => {
@@ -38,17 +33,6 @@ export const fetchUsers = (): AppThunk => {
         }
     };
 };
-
-export const fetchUserById = (id: number):AppThunk => {
-    return async dispatch => {
-        try {
-            const user: IUser = await UsersService.getUserById(id);
-            dispatch(setUser(user));
-        }catch (e) {
-            console.log(e);
-        }
-    }
-}
 
 export const insertUser = (user: IUser): AppThunk => {
     return async dispatch => {

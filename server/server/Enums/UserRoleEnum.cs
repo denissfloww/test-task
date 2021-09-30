@@ -5,12 +5,12 @@ namespace Server.Enums
     public enum UserRoleEnum
     {
         [Description("Администратор")]
-        Admin = 1,
+        Admin,
 
         [Description("Менеджер")]
-        Manager = 2,
+        Manager,
 
         [Description("Сотрудник")]
-        Worker = 3
+        Worker
     }
 }

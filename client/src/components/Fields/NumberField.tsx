@@ -16,7 +16,6 @@ const NumberField = (props: NumberFieldProps) => {
             inputRef={register}
             margin='dense'
             name='number'
-            required
             id='number'
             value={number}
             onChange={e => {

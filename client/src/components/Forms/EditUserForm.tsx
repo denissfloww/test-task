@@ -1,17 +1,17 @@
-import DialogContentText from '@material-ui/core/DialogContentText';
-import { MenuItem, Select, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import React, { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { UserPayLoad } from '../../types';
 import NumberField from '../Fields/NumberField';
 import RoleSelect from '../Fields/RoleSelect';
-import { InputValues } from '../../interfaces/InputValues';
-import { getRoleEnumKeys, getRoleEnumValues } from '../../utils/helperFunctions';
+import { convertInputValuesToUser } from '../../utils/helperFunctions';
+import { useDispatch } from 'react-redux';
+import { updateUser } from '../../redux/slices/usersSlice';
 
-interface EditFormProps {
+interface IFormProps {
     handleClose: () => void;
     userData: UserPayLoad;
 }
@@ -22,27 +22,26 @@ const validationSchema = yup.object({
     surname: yup.string().required('Заполните это поле!'),
 });
 
-const EditForm = (props: EditFormProps) => {
+const EditUserForm = (props: IFormProps) => {
     const { userData, handleClose } = props;
     const [number, setNumber] = useState(userData.number);
     const [role, setRole] = useState(userData.role);
-    const { register, handleSubmit, errors, control } = useForm({
+    const dispatch = useDispatch();
+    const { register, handleSubmit, errors } = useForm({
         mode: 'onChange',
         resolver: yupResolver(validationSchema),
         defaultValues: {
             email: userData.email,
             name: userData.name,
             surname: userData.surname,
-            role: userData.role
+            role: userData.role,
         },
     });
 
     const handleUpdateUser = (values: any) => {
-        console.log('ggg');
-        console.log(values)
-        // const user = convertInputValuesToUser(values);
-        // dispatch(updateUser(user));
-        //handleClose();
+        const user = convertInputValuesToUser(values);
+        dispatch(updateUser(user));
+        handleClose();
     };
 
     const inputsAttr = [
@@ -51,40 +50,40 @@ const EditForm = (props: EditFormProps) => {
             type: 'email',
             label: 'Email',
             helperText: 'email' in errors ? errors.email?.message : '',
+            required: true,
         },
         {
             name: 'name',
             type: 'text',
             label: 'Имя',
             helperText: 'name' in errors ? errors.name?.message : '',
+            required: true,
         },
         {
             name: 'surname',
             type: 'text',
             label: 'Фамилия',
             helperText: 'surname' in errors ? errors.surname?.message : '',
+            required: true,
         },
-    ]
-
-    const roleEnumValues = getRoleEnumValues();
-    const roleEnumKeys = getRoleEnumKeys(roleEnumValues);
+    ];
 
     return (
         <form onSubmit={handleSubmit(handleUpdateUser)}>
-                {inputsAttr.map(value => (
-                    <TextField
-                        inputRef={register}
-                        name={value.name}
-                        error={value.name in errors}
-                        helperText={value.helperText}
-                        label={value.label}
-                        type={value.type}
-                        fullWidth
-                    />
-                ))}
-                <NumberField register={register} setNumber={setNumber} number={number} />
-           <RoleSelect setRole={setRole} role={role}/>
-
+            {inputsAttr.map(value => (
+                <TextField
+                    inputRef={register}
+                    name={value.name}
+                    required={value.required}
+                    error={value.name in errors}
+                    helperText={value.helperText}
+                    label={value.label}
+                    type={value.type}
+                    fullWidth
+                />
+            ))}
+            <NumberField register={register} setNumber={setNumber} number={number} />
+            <RoleSelect setRole={setRole} role={role} />
 
             <div>
                 <Button onClick={handleClose} color='primary'>
@@ -98,4 +97,4 @@ const EditForm = (props: EditFormProps) => {
     );
 };
 
-export default EditForm;
+export default EditUserForm;

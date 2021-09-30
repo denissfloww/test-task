@@ -61,8 +61,9 @@ namespace Server.Migrations
                             Id = 1L,
                             Email = "Robert@test.com",
                             Name = "Robert",
+                            Number = "+7(999)921-3016",
                             Password = "88888888",
-                            Role = 1,
+                            Role = 0,
                             Surname = "Jack"
                         },
                         new
@@ -70,8 +71,9 @@ namespace Server.Migrations
                             Id = 2L,
                             Email = "James@admin.com",
                             Name = "James",
+                            Number = "+7(918)928-4444",
                             Password = "88888888",
-                            Role = 2,
+                            Role = 1,
                             Surname = "Thomas"
                         },
                         new
@@ -79,8 +81,9 @@ namespace Server.Migrations
                             Id = 3L,
                             Email = "Michel@admin.com",
                             Name = "Michel",
+                            Number = "+7(923)915-4940",
                             Password = "88888888",
-                            Role = 3,
+                            Role = 2,
                             Surname = "Young"
                         });
                 });

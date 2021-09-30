@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Server.Migrations
 {
-    public partial class user : Migration
+    public partial class users : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,9 +30,9 @@ namespace Server.Migrations
                 columns: new[] { "Id", "Email", "Name", "Number", "Password", "Role", "Surname" },
                 values: new object[,]
                 {
-                    { 1L, "Robert@test.com", "Robert", null, "88888888", 1, "Jack" },
-                    { 2L, "James@admin.com", "James", null, "88888888", 2, "Thomas" },
-                    { 3L, "Michel@admin.com", "Michel", null, "88888888", 3, "Young" }
+                    { 1L, "Robert@test.com", "Robert", "+7(999)921-3016", "88888888", 0, "Jack" },
+                    { 2L, "James@admin.com", "James", "+7(918)928-4444", "88888888", 1, "Thomas" },
+                    { 3L, "Michel@admin.com", "Michel", "+7(923)915-4940", "88888888", 2, "Young" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -31,6 +31,7 @@ namespace Server.Infrastructure
                         Name = "Robert",
                         Password = "88888888",
                         Surname = "Jack",
+                        Number = "+7(999)921-3016",
                         Role = Enums.UserRoleEnum.Admin
                     },
                     new User {
@@ -38,6 +39,7 @@ namespace Server.Infrastructure
                         Email = "James@admin.com",
                         Name = "James",
                         Password = "88888888",
+                        Number = "+7(918)928-4444",
                         Surname = "Thomas",
                         Role = Enums.UserRoleEnum.Manager
                     },
@@ -46,6 +48,7 @@ namespace Server.Infrastructure
                         Email = "Michel@admin.com",
                         Name = "Michel",
                         Password = "88888888",
+                        Number = "+7(923)915-4940",
                         Surname = "Young",
                         Role = Enums.UserRoleEnum.Worker
                     }

@@ -3,7 +3,7 @@ import { Button, Grid, Paper } from '@material-ui/core';
 import UsersTable from '../components/UsersTable';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import FilterBar from '../components/FilterBar';
+import FilterBar from '../components/Fields/FilterBar';
 import { IUser } from '../interfaces/IUser';
 import { useDispatch, useSelector } from 'react-redux';
 import NewUserDialogComponent from '../components/Dialogs/CreateNewUserDialog';

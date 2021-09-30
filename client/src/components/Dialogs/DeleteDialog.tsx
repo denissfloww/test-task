@@ -5,17 +5,23 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { deleteUser } from '../../redux/slices/usersSlice';
+import { useDispatch } from 'react-redux';
 
 interface DialogProps {
     open: boolean;
     handleClose: () => void;
-    handleDelete: (id: number) => void;
     id: number;
 }
 
-const ConfirmDeleteDialog = (props: DialogProps) => {
-    const { handleClose, open, handleDelete, id } = props;
+const DeleteDialog = (props: DialogProps) => {
+    const { handleClose, open, id } = props;
+    const dispatch = useDispatch();
 
+    const handleDelete = (id: number) => {
+        dispatch(deleteUser(id));
+        handleClose();
+    };
     return (
         <Dialog open={open} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
             <DialogTitle id='alert-dialog-title'>{'Удаление'}</DialogTitle>
@@ -34,4 +40,4 @@ const ConfirmDeleteDialog = (props: DialogProps) => {
     );
 };
 
-export default ConfirmDeleteDialog;
+export default DeleteDialog;
