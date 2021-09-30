@@ -5,12 +5,12 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CreateUserForm from '../Forms/CreateUserForm';
 
-interface DialogProps {
+interface IDialogProps {
     open: boolean;
     handleClose: () => void;
 }
 
-const CreateNewUserDialog = (props: DialogProps) => {
+const CreateNewUserDialog = (props: IDialogProps) => {
     const { handleClose, open } = props;
 
     return (

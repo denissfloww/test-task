@@ -8,13 +8,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { deleteUser } from '../../redux/slices/usersSlice';
 import { useDispatch } from 'react-redux';
 
-interface DialogProps {
+interface IDialogProps {
     open: boolean;
     handleClose: () => void;
     id: number;
 }
 
-const DeleteDialog = (props: DialogProps) => {
+const DeleteDialog = (props: IDialogProps) => {
     const { handleClose, open, id } = props;
     const dispatch = useDispatch();
 

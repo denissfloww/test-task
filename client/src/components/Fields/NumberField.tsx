@@ -2,13 +2,13 @@ import NumberInputMask from './NumberInputMask';
 import { TextField } from '@material-ui/core';
 import React from 'react';
 
-interface NumberFieldProps {
+interface INumberFieldProps {
     register: any;
     setNumber: (value: ((prevState: any) => any) | any) => void;
     number: string;
 }
 
-const NumberField = (props: NumberFieldProps) => {
+const NumberField = (props: INumberFieldProps) => {
     const { register, setNumber, number } = props;
 
     return (

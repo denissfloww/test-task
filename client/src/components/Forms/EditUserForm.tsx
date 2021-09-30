@@ -10,6 +10,7 @@ import RoleSelect from '../Fields/RoleSelect';
 import { convertInputValuesToUser } from '../../utils/helperFunctions';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../../redux/slices/usersSlice';
+import { InputValues } from '../../interfaces/InputValues';
 
 interface IFormProps {
     handleClose: () => void;
@@ -38,8 +39,12 @@ const EditUserForm = (props: IFormProps) => {
         },
     });
 
-    const handleUpdateUser = (values: any) => {
+    const handleUpdateUser = (values: InputValues) => {
+        values.role = role;
+        values.number = number;
+        values.password = userData.password;
         const user = convertInputValuesToUser(values);
+        user.id = userData.id
         dispatch(updateUser(user));
         handleClose();
     };

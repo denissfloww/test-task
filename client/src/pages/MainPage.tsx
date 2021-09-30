@@ -1,5 +1,5 @@
 import { useMainPageStyles } from '../styles/muiStyles';
-import { Button, Grid, Paper } from '@material-ui/core';
+import { Button, Grid, Paper, Snackbar } from '@material-ui/core';
 import UsersTable from '../components/UsersTable';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
@@ -8,6 +8,7 @@ import { IUser } from '../interfaces/IUser';
 import { useDispatch, useSelector } from 'react-redux';
 import NewUserDialogComponent from '../components/Dialogs/CreateNewUserDialog';
 import { fetchUsers, selectUsersState } from '../redux/slices/usersSlice';
+import { Alert } from '@material-ui/lab';
 
 
 const MainPage = () => {
@@ -18,7 +19,7 @@ const MainPage = () => {
     useEffect(() => {
         dispatch(fetchUsers());
     }, []);
-    const { users } = useSelector(selectUsersState);
+    const { users, error } = useSelector(selectUsersState);
     const filteredUsers = users.filter((p: IUser) => {
         if (filterValue.length !== 0 && filterValue.length > 3) {
             return p.name.toLowerCase().includes(filterValue.toLowerCase()) || p.email.toLowerCase().includes(filterValue.toLowerCase());
@@ -33,6 +34,10 @@ const MainPage = () => {
     const handleCloseInsertNewUserDialog = () => {
         setOpenInsertNewUserDialog(false);
     };
+
+    const handleCloseSnackBar = () => {
+
+    }
 
     return (
         <div className={classes.root}>
@@ -51,6 +56,9 @@ const MainPage = () => {
                     handleClose={handleCloseInsertNewUserDialog}
                 />
             </Paper>
+            <Snackbar open={error != null} autoHideDuration={4000} onClose>
+                <Alert severity='error'>{error}</Alert>
+            </Snackbar>
         </div>
     );
 };

@@ -20,6 +20,10 @@ const insertUser = async (user: IUser) => {
         surname: user.surname,
         number: user.number,
         role: user.role,
+    }).catch(function(e) {
+        if (e.response) {
+            console.log('f')
+        }
     });
 };
 
@@ -29,13 +33,13 @@ const deleteUser = async (id: number) => {
 };
 
 const updateUserPassword = async (userId: number, password: string) => {
-    await axios.put(`${backendUrl}/user/${userId}/password`, {
+    await axios.put(`${backendUrl}/user/password`, {
         password: password,
+        userId: userId
     });
 };
 
 const updateUser = async (user: IUser) => {
-
     await axios.put(`${backendUrl}/user`, {
         id: user.id,
         email: user.email,

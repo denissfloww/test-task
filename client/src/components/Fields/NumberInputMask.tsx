@@ -1,12 +1,12 @@
 import React from 'react';
 import { IMaskInput } from 'react-imask';
 
-interface CustomProps {
+interface ICustomProps {
     onChange: (event: { target: { name: string; value: string } }) => void;
     name: string;
 }
 
-const NumberInputMask = React.forwardRef<HTMLElement, CustomProps>(function TextMaskCustom(props, ref) {
+const NumberInputMask = React.forwardRef<HTMLElement, ICustomProps>(function TextMaskCustom(props, ref) {
     const { onChange, ...other } = props;
     return (
         <IMaskInput

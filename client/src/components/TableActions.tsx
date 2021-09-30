@@ -53,7 +53,6 @@ const TableActions = (props: ITableActionsProps) => {
     };
 
     const currentUserId = AuthService.getCurrentUserId();
-    console.log(currentUserId, userData.id);
     return (
         <>
             <Button onClick={() => handleClickOpenEditDialog()}>

@@ -2,12 +2,12 @@ import { MenuItem, Select } from '@material-ui/core';
 import React from 'react';
 import { getRoleEnumKeys, getRoleEnumValues } from '../../utils/helperFunctions';
 
-interface RoleSelectProps {
+interface IRoleSelectProps {
     setRole: (value: ((prevState: any) => any) | any) => void;
     role: number;
 }
 
-const RoleSelect = (props: RoleSelectProps) => {
+const RoleSelect = (props: IRoleSelectProps) => {
     const {setRole, role} = props;
     const roleEnumValues = getRoleEnumValues();
     const roleEnumKeys = getRoleEnumKeys(roleEnumValues);

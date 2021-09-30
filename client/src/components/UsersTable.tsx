@@ -40,7 +40,8 @@ const UsersTable = (props: UserTableProps) => {
                                         name: user.name,
                                         surname: user.surname,
                                         number: user.number,
-                                        role: user.role
+                                        role: user.role,
+                                        password: user.password
                                     }} />
                                 </TableCell>
                             </TableRow>
