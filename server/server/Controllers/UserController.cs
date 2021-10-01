@@ -93,12 +93,12 @@ namespace Server.Controllers
             }
         }
 
-        [HttpPut, Route("/user/{userId}/password")]
-        public void UpdateUserPassword(long userId, ChangePasswordDto passwordDto)
+        [HttpPut, Route("/user/password")]
+        public void UpdateUserPassword(ChangePasswordDto passwordDto)
         {
             try
             {
-                _userService.UpdateUserPassword(userId, passwordDto.Password);
+                _userService.UpdateUserPassword(passwordDto.UserId, passwordDto.Password);
             }
             catch (Exception e)
             {

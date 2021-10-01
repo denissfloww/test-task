@@ -3,15 +3,14 @@ import { AppThunk, RootState } from '../store';
 import { IUser } from '../../interfaces/IUser';
 import UsersService from '../../services/usersService';
 import { getErrorMsg } from '../../utils/helperFunctions';
+import { notify } from './notifySlice';
 
 interface InitialState {
     users: IUser[];
-    error: string | null;
 }
 
 const initialState: InitialState = {
     users: [],
-    error: null,
 };
 
 const usersSlice = createSlice({
@@ -21,13 +20,10 @@ const usersSlice = createSlice({
         setUsers: (state, action: PayloadAction<IUser[]>) => {
             state.users = action.payload;
         },
-        setError:(state, action: PayloadAction<string>) => {
-            state.error = action.payload
-        }
     },
 });
 
-export const { setUsers, setError } = usersSlice.actions;
+export const { setUsers } = usersSlice.actions;
 
 export const fetchUsers = (): AppThunk => {
     return async dispatch => {
@@ -35,7 +31,7 @@ export const fetchUsers = (): AppThunk => {
             const users = await UsersService.getUsers();
             dispatch(setUsers(users));
         } catch (e: any) {
-            dispatch(setError(getErrorMsg(e)))
+            dispatch(notify(getErrorMsg(e), 'error'))
         }
     };
 };
@@ -46,8 +42,9 @@ export const insertUser = (user: IUser): AppThunk => {
             await UsersService.insertUser(user);
             const users = await UsersService.getUsers();
             dispatch(setUsers(users));
+            dispatch(notify('Пользователь добавлен!', 'success'))
         } catch (e: any) {
-            dispatch(setError(getErrorMsg(e)))
+            dispatch(notify(getErrorMsg(e), 'error'))
         }
     };
 };
@@ -58,8 +55,9 @@ export const deleteUser = (id: number): AppThunk => {
             await UsersService.deleteUser(id);
             const users = await UsersService.getUsers();
             dispatch(setUsers(users));
+            dispatch(notify('Пользователь удален!', 'success'))
         } catch (e: any) {
-            dispatch(setError(getErrorMsg(e)))
+            dispatch(notify(getErrorMsg(e), 'error'))
         }
     };
 };
@@ -70,8 +68,9 @@ export const updateUserPassword = (id: number, password: string): AppThunk => {
             await UsersService.updateUserPassword(id, password);
             const users = await UsersService.getUsers();
             dispatch(setUsers(users));
+            dispatch(notify('Пароль обновлен!', 'success'))
         } catch (e: any) {
-            dispatch(setError(getErrorMsg(e)))
+            dispatch(notify(getErrorMsg(e), 'error'))
         }
     };
 };
@@ -82,8 +81,9 @@ export const updateUser = (user: IUser): AppThunk => {
             await UsersService.updateUser(user);
             const users = await UsersService.getUsers();
             dispatch(setUsers(users));
+            dispatch(notify('Данные пользователя обновленны!', 'success'))
         } catch (e: any) {
-            dispatch(setError(getErrorMsg(e)))
+            dispatch(notify(getErrorMsg(e), 'error'))
         }
     };
 };

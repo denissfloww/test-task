@@ -1,10 +1,12 @@
 import { Action, configureStore } from '@reduxjs/toolkit';
 import { ThunkAction } from 'redux-thunk';
 import userReducer from './slices/usersSlice';
+import notifySlice from './slices/notifySlice';
 
 const store = configureStore({
     reducer: {
         users: userReducer,
+        notify: notifySlice,
     },
 });
 

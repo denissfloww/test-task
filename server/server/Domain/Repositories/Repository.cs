@@ -38,11 +38,10 @@ namespace Server.Domain.Repositories
             _context.SaveChanges();
         }
 
-        public async Task<TEntity> Update(TEntity entity)
+        public async Task Update(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
-            return entity;
         }
     }
 }

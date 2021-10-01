@@ -8,7 +8,7 @@ import { IUser } from '../interfaces/IUser';
 import { useDispatch, useSelector } from 'react-redux';
 import NewUserDialogComponent from '../components/Dialogs/CreateNewUserDialog';
 import { fetchUsers, selectUsersState } from '../redux/slices/usersSlice';
-import { Alert } from '@material-ui/lab';
+import NotificationBox from '../components/NotificationBox';
 
 
 const MainPage = () => {
@@ -19,7 +19,7 @@ const MainPage = () => {
     useEffect(() => {
         dispatch(fetchUsers());
     }, []);
-    const { users, error } = useSelector(selectUsersState);
+    const { users } = useSelector(selectUsersState);
     const filteredUsers = users.filter((p: IUser) => {
         if (filterValue.length !== 0 && filterValue.length > 3) {
             return p.name.toLowerCase().includes(filterValue.toLowerCase()) || p.email.toLowerCase().includes(filterValue.toLowerCase());
@@ -34,10 +34,6 @@ const MainPage = () => {
     const handleCloseInsertNewUserDialog = () => {
         setOpenInsertNewUserDialog(false);
     };
-
-    const handleCloseSnackBar = () => {
-
-    }
 
     return (
         <div className={classes.root}>
@@ -56,9 +52,6 @@ const MainPage = () => {
                     handleClose={handleCloseInsertNewUserDialog}
                 />
             </Paper>
-            <Snackbar open={error != null} autoHideDuration={4000} onClose>
-                <Alert severity='error'>{error}</Alert>
-            </Snackbar>
         </div>
     );
 };

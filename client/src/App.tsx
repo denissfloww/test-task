@@ -5,6 +5,7 @@ import theme from './styles/customTheme';
 import { useBodyStyles } from './styles/muiStyles';
 import Routes from "./Router";
 import { autoLogin } from './services/authService';
+import NotificationBox from './components/NotificationBox';
 
 const App = () => {
     const darkMode = false;
@@ -16,6 +17,7 @@ const App = () => {
     return (
         <ThemeProvider theme={theme(darkMode)}>
             <div className={classes.root}>
+                <NotificationBox />
                 <Routes />
             </div>
         </ThemeProvider>
