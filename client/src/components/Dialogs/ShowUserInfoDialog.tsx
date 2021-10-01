@@ -1,9 +1,10 @@
-import { UserPayLoad } from '../../types';
-import { DialogActions, DialogContentText, DialogTitle, TextField } from '@material-ui/core';
-import DialogContent from '@material-ui/core/DialogContent';
-import Dialog from '@material-ui/core/Dialog';
-import React from 'react';
+import { DialogActions, DialogContentText, DialogTitle } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import React from 'react';
+
+import { UserPayLoad } from '../../types';
 import UserInfoForm from '../Forms/UserInfoForm';
 
 interface IDialogProps {

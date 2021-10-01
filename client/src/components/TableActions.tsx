@@ -1,15 +1,16 @@
 import { Button } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
-import * as React from 'react';
-import EditUserDialogComponent from './Dialogs/EditUserDialog';
-import { UserPayLoad } from '../types';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import ChangePasswordDialog from './Dialogs/ChangePasswordDialog';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import EditIcon from '@material-ui/icons/Edit';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 import PersonIcon from '@material-ui/icons/Person';
-import DeleteDialog from './Dialogs/DeleteDialog';
-import ShowUserInfoDialog from './Dialogs/ShowUserInfoDialog';
+import * as React from 'react';
+
 import AuthService from '../services/authService';
+import { UserPayLoad } from '../types';
+import ChangePasswordDialog from './Dialogs/ChangePasswordDialog';
+import DeleteDialog from './Dialogs/DeleteDialog';
+import EditUserDialogComponent from './Dialogs/EditUserDialog';
+import ShowUserInfoDialog from './Dialogs/ShowUserInfoDialog';
 
 interface ITableActionsProps {
     userData: UserPayLoad;

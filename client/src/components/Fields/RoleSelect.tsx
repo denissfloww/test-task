@@ -1,5 +1,6 @@
 import { MenuItem, Select } from '@material-ui/core';
 import React from 'react';
+
 import { getRoleEnumKeys, getRoleEnumValues } from '../../utils/helperFunctions';
 
 interface IRoleSelectProps {
@@ -8,7 +9,7 @@ interface IRoleSelectProps {
 }
 
 const RoleSelect = (props: IRoleSelectProps) => {
-    const {setRole, role} = props;
+    const { setRole, role } = props;
     const roleEnumValues = getRoleEnumValues();
     const roleEnumKeys = getRoleEnumKeys(roleEnumValues);
 
@@ -20,7 +21,7 @@ const RoleSelect = (props: IRoleSelectProps) => {
             name='role'
             value={role}
             required
-            onChange={(e) => {
+            onChange={e => {
                 setRole(e.target.value);
             }}
         >
@@ -28,7 +29,7 @@ const RoleSelect = (props: IRoleSelectProps) => {
                 <MenuItem value={key}>{roleEnumValues[Number(key)]}</MenuItem>
             ))}
         </Select>
-    )
-}
+    );
+};
 
 export default RoleSelect;

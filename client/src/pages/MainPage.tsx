@@ -1,14 +1,14 @@
-import { useMainPageStyles } from '../styles/muiStyles';
-import { Button, Grid, Paper, Snackbar } from '@material-ui/core';
-import UsersTable from '../components/UsersTable';
+import { Button, Grid, Paper } from '@material-ui/core';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import FilterBar from '../components/Fields/FilterBar';
-import { IUser } from '../interfaces/IUser';
 import { useDispatch, useSelector } from 'react-redux';
+
 import NewUserDialogComponent from '../components/Dialogs/CreateNewUserDialog';
+import FilterBar from '../components/Fields/FilterBar';
+import UsersTable from '../components/UsersTable';
+import { IUser } from '../interfaces/IUser';
 import { fetchUsers, selectUsersState } from '../redux/slices/usersSlice';
-import NotificationBox from '../components/NotificationBox';
+import { useMainPageStyles } from '../styles/muiStyles';
 
 
 const MainPage = () => {

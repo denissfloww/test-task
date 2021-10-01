@@ -1,7 +1,8 @@
-import DialogContent from '@material-ui/core/DialogContent';
-import Dialog from '@material-ui/core/Dialog';
-import React from 'react';
 import { DialogContentText, DialogTitle } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import React from 'react';
+
 import { UserPayLoad } from '../../types';
 import EditUserForm from '../Forms/EditUserForm';
 

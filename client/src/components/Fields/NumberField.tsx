@@ -1,6 +1,7 @@
-import NumberInputMask from './NumberInputMask';
 import { TextField } from '@material-ui/core';
 import React from 'react';
+
+import NumberInputMask from './NumberInputMask';
 
 interface INumberFieldProps {
     register: any;

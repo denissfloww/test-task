@@ -1,7 +1,8 @@
-import { Alert } from '@material-ui/lab';
 import { Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { clearNotification, selectNotifyState } from '../redux/slices/notifySlice';
 
 const NotificationBox = () => {

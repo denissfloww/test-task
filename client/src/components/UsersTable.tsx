@@ -1,7 +1,8 @@
-import * as React from 'react';
-import { IUser } from '../interfaces/IUser';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import * as React from 'react';
+
 import { RolesEnum } from '../enums/RolesEnum';
+import { IUser } from '../interfaces/IUser';
 import TableActions from './TableActions';
 
 interface UserTableProps {

@@ -1,8 +1,9 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AppThunk, RootState } from '../store';
+import { createSlice,PayloadAction } from '@reduxjs/toolkit';
+
 import { IUser } from '../../interfaces/IUser';
 import UsersService from '../../services/usersService';
 import { getErrorMsg } from '../../utils/helperFunctions';
+import { AppThunk, RootState } from '../store';
 import { notify } from './notifySlice';
 
 interface InitialState {
